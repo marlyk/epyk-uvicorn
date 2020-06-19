@@ -42,8 +42,14 @@ Install Epyk
 
 Please make sure the latest version of those libraries are installed
 
+The below code will show you how to create a server and a dynamic rich web page with few lines of Python code.
 
 ```py
+
+import os
+from epyk.core.Page import Report
+
+
 async def test(scope, receive, send):
   page = Report()
   page.headers.dev()
