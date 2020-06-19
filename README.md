@@ -40,7 +40,37 @@ Install Epyk
 
 > pip install epyk
 
-Please make sure the lastest version of those libraries are installed
+Please make sure the latest version of those libraries are installed
+
+
+```py
+async def test(scope, receive, send):
+  page = Report()
+  page.headers.dev()
+  div = page.ui.div("Hellow World!")
+  button = page.ui.button("Click Me")
+  div.style.css.color = 'red'
+  button.click([
+    page.js.alert("Clicked")
+  ])
+
+  await send({
+    'type': 'http.response.start',
+    'status': 200,
+    'headers': [
+      [b'content-type', b'text/html'],
+    ]
+  })
+
+  await send({
+    'type': 'http.response.body',
+    'body': page.outs.html().encode('utf-8'),
+  })
+
+
+if __name__ == "__main__":
+    uvicorn.run("server:test", host="127.0.0.1", port=5000, log_level="info", reload=True)
+```
 
 
 Repo Architecture
